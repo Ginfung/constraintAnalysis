@@ -1,13 +1,14 @@
 clear all
 Problem = @Fonseca;
-NP = 100;
+NP = 50;
 CR = 0.3;
 F = 0.9;
 gen_max = 800;
 D = 3;
 ObjectiveDimension = 2;
 domain_a = -4;
-domain_b = 4;
+domain_b = 3;
+
 
 parent = rand(NP,D)*(domain_b-domain_a)+domain_a; %initial population. x in [?,?]
 desire = NP;
@@ -49,7 +50,7 @@ while (count <= gen_max)
         for k = 1:D
             if (rand()<CR || k == D)
                 trial(j) = parent(c,j) + F*(parent(a,j)-parent(b,j));
-               % trial(j) = mod(trial(j),1);
+                trial(j) = mod(trial(j),1);
             else
                 trial(j) = parent(i,j);
             end

@@ -48,8 +48,8 @@
 % figure(gcf);
 % hold on
 
-for i = 1:100
-    plot(parent(i,1),parent(i,2),'rx');
+for i = 1:50
+    plot(f(i,1),f(i,2),'rx');
     hold on;
 end
  set(gca,'xlim',[0 1]);
