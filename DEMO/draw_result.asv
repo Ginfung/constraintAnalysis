@@ -48,11 +48,11 @@
 % figure(gcf);
 % hold on
 
-for i = 1:100
+for i = 1:50
     plot(i,sum(f(i,:)),'rx');
     hold on;
 end
- set(gca,'xlim',[0 100]);
+ set(gca,'xlim',[0 1]);
  set(gca,'ylim',[0 1]);
  figure(gcf)
  hold on

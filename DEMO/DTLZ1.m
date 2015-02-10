@@ -1,5 +1,5 @@
 function [ f ] = DTLZ1(x,n)
-M = 4; %Here can set up the M
+M = 3; %Here can set up the M
 k = 5; %Let k = 5, as suggested. Thus n should be 8
 %get g
 sum = 0;
