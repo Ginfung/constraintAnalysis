@@ -1,3 +1,5 @@
+%trial version for multi objective
+%modified based on DEB et al.: A fast and elitist multiobjective GA:NSGA-II
 clear all
 Problem = @DTLZ1;
 NP = 100;
