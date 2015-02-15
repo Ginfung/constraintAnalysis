@@ -1,0 +1,9 @@
+%Sorting the population
+%Based on DEB et al.: A FAST AND ELITIST MULTIOBJECTIVE GA: NSGA-II
+
+function [rank] = fast-non-dominated-sort( parent,f )
+    n = length(parent);
+    S = [];
+    
+end
+
