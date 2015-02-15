@@ -1,11 +1,11 @@
 clear all
-Problem = @DTLZ1;
-NP = 100;
+Problem = @Fonseca;
+NP = 50;
 CR = 0.3;
-F = 0.9;
+F = 0.3;
 gen_max = 100;
-D = 7;
-ObjectiveDimension = 3;
+D = 3;
+ObjectiveDimension = 2;
 domain_a = 0;
 domain_b = 1;
 
@@ -22,7 +22,6 @@ trial_objective = zeros(1,ObjectiveDimension);
 
 count = 1;
 while (count <= gen_max)
-    desire = NP;
     for i = 1:NP
         %get distinct a,b,c
         while (1)
@@ -64,27 +63,8 @@ while (count <= gen_max)
         if testDominate(trial_objective,f(i,:),ObjectiveDimension)
             parent(i,:) = trial;
             f(i,:) = trial_objective;
-        else
-            if ~testDominate(f(i,:),trial_objective,ObjectiveDimension)
-                desire = desire+1;
-               parent(desire,:) = trial;
-               f(desire,:) = trial_objective;
-            end
          end         
     end
-    %sort the f(1~desire), and get the first NP results
-    f(:,ObjectiveDimension+1) = 0;
-    for i = 1:desire
-        for j = 1:desire
-            if i~= j && testDominate(f(i,:),f(j,:),ObjectiveDimension)
-                f(i,ObjectiveDimension+1) = f(i,ObjectiveDimension+1)+1;
-            end
-        end
-    end
-    f(:,ObjectiveDimension+2:ObjectiveDimension+1+D) = parent(:,:);
-    f = sortrows(f,-(ObjectiveDimension+1));
-    parent = f(:,ObjectiveDimension+2:ObjectiveDimension+1+D);
-    f = f(1:NP,1:ObjectiveDimension);
     count  = count + 1;
 end
 
