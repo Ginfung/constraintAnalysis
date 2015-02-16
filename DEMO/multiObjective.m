@@ -1,13 +1,13 @@
 %trial version for multi objective
 %modified based on DEB et al.: A fast and elitist multiobjective GA:NSGA-II
 clear all
-Problem = @DTLZ1;
-NP = 70; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
-CR = 0.3;
+Problem = @DTLZ2;
+NP = 30; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
+CR = 0.45;
 F = 0.3;
-gen_max = 10;
-D = 7;
-ObjectiveDimension = 3;
+gen_max = 50;
+D = 15;
+ObjectiveDimension = 6;
 domain_a = 0;
 domain_b = 1;
 
@@ -18,6 +18,7 @@ f = zeros(NP,ObjectiveDimension);
 for i = 1:NP
     f(i,:) = Problem(parent(i,:),D);
 end
+
 
 trial = zeros(1,D);
 trial_objective = zeros(1,ObjectiveDimension);
@@ -30,22 +31,18 @@ while (count <= gen_max)
         a = rev(1);
         b = rev(2);
         c = rev(3);
-        
-        j = randi(D); 
-        
+
         mutant = parent(c,:) + F*(parent(a,:)-parent(b,:));
+        for x = 1:D %always check the variables domain
+            mutant(x) = max(domain_a,mutant(x));
+            mutant(x) = min(domain_b,mutant(x));
+        end
         for k = 1:D
             if (rand()<CR || k == D)
-                trial(j) = mutant(j);
-                trial(j) = max(domain_a,trial(j));
-                trial(j) = min(domain_b,trial(j));
+                trial(k) = mutant(k);
             else
-                trial(j) = parent(i,j);
+                trial(k) = parent(i,k);
             end
-            j = j+1;
-            if j>D
-                j=1;
-            end 
         end
         
         trial_objective = Problem(trial,D);
@@ -53,7 +50,7 @@ while (count <= gen_max)
         if testDominate(trial_objective,f(i,:),ObjectiveDimension)
             parent(i,:) = trial;
             f(i,:) = trial_objective;
-        elseif (~testDominate(f(i,:),trial_objective,ObjectiveDimension)) %indifferent. add to NP
+        elseif (~testDominate(f(i,:),trial_objective,ObjectiveDimension)) %indifferent. add to NP    
                 parent = [parent;trial];
                 f = [f;trial_objective];
         end         
@@ -81,10 +78,9 @@ while (count <= gen_max)
             f2(renew_count+1:renew_count+length(qqq),:) = f(qqq,:);
             renew_count = renew_count+length(qqq);
             i = i+1;
-        end
-        
+        end 
     end
-    count  = count + 1
+   count = count + 1
 end
 
 for i = 1:NP
