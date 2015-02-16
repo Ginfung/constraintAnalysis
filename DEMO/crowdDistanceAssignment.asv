@@ -1,0 +1,8 @@
+function [ I ] = crowdDistanceAssignment( f,size,ObjectiveDimension )
+    I = zeros(1,size);
+    for m = 1:ObjectiveDimension %for each objective
+        temp = [f(:,m),[1:size]'];
+        temp = sortrow(temp,1);
+    end
+end
+

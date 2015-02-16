@@ -39,14 +39,14 @@
 %     plot(m(i,1),m(i,2),'o');
 % end
 
-% for i = 1:300
-%     plot(parent(i,1),parent(i,2),'rx');
-%     hold on;
-% end
-% set(gca,'xlim',[0 1]);
-% set(gca,'ylim',[0 1]);
-% figure(gcf);
-% hold on
+for i = 1:300
+    plot(parent(i,1),parent(i,2),'rx');
+    hold on;
+end
+set(gca,'xlim',[0 1]);
+set(gca,'ylim',[0 1]);
+figure(gcf);
+hold on
 
 for i = 1:100
     plot(f(i,1),f(i,2),'rx');

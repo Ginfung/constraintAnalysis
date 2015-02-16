@@ -1,12 +1,12 @@
 %trial version for multi objective
 %modified based on DEB et al.: A fast and elitist multiobjective GA:NSGA-II
 clear all
-Problem = @Fonseca;
-NP = 50;
+Problem = @DTLZ1;
+NP = 80; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.3;
 F = 0.3;
-gen_max = 100;
-D = 3;
+gen_max = 10;
+D = 8;
 ObjectiveDimension = 2;
 domain_a = 0;
 domain_b = 1;
@@ -50,6 +50,7 @@ while (count <= gen_max)
         for k = 1:D
             if (rand()<CR || k == D)
                 trial(j) = parent(c,j) + F*(parent(a,j)-parent(b,j));
+                trial(j) = mod(trial(j),1);
             else
                 trial(j) = parent(i,j);
             end
@@ -70,14 +71,39 @@ while (count <= gen_max)
                 f = [f;trial_objective];
             end
         end         
+    end 
+    if(length(f)>NP) %pruning
+        rank = fastNonDominatedSort(f,length(f),ObjectiveDimension);
+        I = crowdDistanceAssignment(f,length(f),ObjectiveDimension);
+        parent2 = zeros(NP,D);
+        f2 = zeros(NP,ObjectiveDimension);
+        i = 1;
+        renew_count = 0;
+        while 1
+            qqq = find(rank(:)==i);
+            if renew_count+length(qqq) > NP %basing on the distance
+                needC = (1:NP-renew_count);
+                alpha = sortrows([I(qqq);1:length(qqq)']',-1);
+                alpha = alpha(needC,2);
+                parent2(renew_count+1:NP,:) = parent(alpha,:);
+                f2(renew_count+1:NP,:) = f(alpha,:);
+                f = f2;
+                parent = parent2;
+               break;
+            end
+            parent2(renew_count+1:renew_count+length(qqq),:) = parent(qqq,:);
+            f2(renew_count+1:renew_count+length(qqq),:) = f(qqq,:);
+            renew_count = renew_count+length(qqq);
+            i = i+1;
+        end
+        
     end
-    %TODO sort the f, s.t. length(parent or f) equals to NP
-    
-    count  = count + 1;
+    count  = count + 1
 end
 
 for i = 1:NP
     f(i,:) = Problem(parent(i,:),D);
 end
+
 
 
