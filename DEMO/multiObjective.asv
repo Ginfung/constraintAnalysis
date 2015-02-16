@@ -6,8 +6,8 @@ NP = 80; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.3;
 F = 0.3;
 gen_max = 10;
-D = 8;
-ObjectiveDimension = 2;
+D = 7;
+ObjectiveDimension = 3;
 domain_a = 0;
 domain_b = 1;
 
@@ -18,7 +18,7 @@ f = zeros(NP,ObjectiveDimension);
 for i = 1:NP
     f(i,:) = Problem(parent(i,:),D);
 end
-
+    
 trial = zeros(1,D);
 trial_objective = zeros(1,ObjectiveDimension);
 
@@ -50,7 +50,7 @@ while (count <= gen_max)
         for k = 1:D
             if (rand()<CR || k == D)
                 trial(j) = parent(c,j) + F*(parent(a,j)-parent(b,j));
-                trial(j) = mod(trial(j),1);
+               % trial(j) = mod(trial(j),1);
             else
                 trial(j) = parent(i,j);
             end

@@ -2,7 +2,7 @@
 %modified based on DEB et al.: A fast and elitist multiobjective GA:NSGA-II
 clear all
 Problem = @DTLZ1;
-NP = 80; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
+NP = 70; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.3;
 F = 0.3;
 gen_max = 10;
@@ -26,31 +26,19 @@ count = 1;
 while (count <= gen_max)
     for i = 1:NP
         %get distinct a,b,c
-        while (1)
-            a = randi(NP);
-            if a ~=  i
-                break;
-            end
-        end
-        while (1)
-            b = randi(NP);
-            if b~= i && b ~= a
-                break;
-            end
-        end
-        while(1)
-            c = randi(NP);
-            if (c~= i) && (c ~= a) && (c~= b)
-                break;
-            end
-        end
+        rev = randperm(NP);
+        a = rev(1);
+        b = rev(2);
+        c = rev(3);
         
         j = randi(D); 
         
+        mutant = parent(c,:) + F*(parent(a,:)-parent(b,:));
         for k = 1:D
             if (rand()<CR || k == D)
-                trial(j) = parent(c,j) + F*(parent(a,j)-parent(b,j));
-               % trial(j) = mod(trial(j),1);
+                trial(j) = mutant(j);
+                trial(j) = max(domain_a,trial(j));
+                trial(j) = min(domain_b,trial(j));
             else
                 trial(j) = parent(i,j);
             end
@@ -65,11 +53,9 @@ while (count <= gen_max)
         if testDominate(trial_objective,f(i,:),ObjectiveDimension)
             parent(i,:) = trial;
             f(i,:) = trial_objective;
-        else
-            if (~testDominate(f(i,:),trial_objective,ObjectiveDimension)) %indifferent. add to NP
+        elseif (~testDominate(f(i,:),trial_objective,ObjectiveDimension)) %indifferent. add to NP
                 parent = [parent;trial];
                 f = [f;trial_objective];
-            end
         end         
     end 
     if(length(f)>NP) %pruning
