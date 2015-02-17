@@ -4,7 +4,7 @@ clear all
 Problem = @DTLZ1;
 NP = 30; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.45;
-F = 0.3;
+F = 0.1;
 gen_max = 200;
 D = 7;
 ObjectiveDimension = 3;
@@ -67,9 +67,9 @@ while (count <= gen_max)
         while 1
             qqq = find(rank(:)==i);
             if renew_count+length(qqq) > NP %basing on the distance
-                needC = (1:NP-renew_count);
+                needC = NP-renew_count;
                 alpha = sortrows([I(qqq);1:length(qqq)']',-1);
-                alpha = alpha(needC,2);
+                alpha = alpha(1:needC,2);
                 parent2(renew_count+1:NP,:) = parent(alpha,:);
                 f2(renew_count+1:NP,:) = f(alpha,:);
                 f = f2;
