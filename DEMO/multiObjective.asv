@@ -1,13 +1,13 @@
 %trial version for multi objective
 %modified based on DEB et al.: A fast and elitist multiobjective GA:NSGA-II
 clear all
-Problem = @DTLZ1;
-NP = 80; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
-CR = 0.3;
+Problem = @DTLZ2;
+NP = 30; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
+CR = 0.45;
 F = 0.3;
-gen_max = 10;
-D = 7;
-ObjectiveDimension = 3;
+gen_max = 50;
+D = 15;
+ObjectiveDimension = 6;
 domain_a = 0;
 domain_b = 1;
 
@@ -18,7 +18,8 @@ f = zeros(NP,ObjectiveDimension);
 for i = 1:NP
     f(i,:) = Problem(parent(i,:),D);
 end
-    
+
+
 trial = zeros(1,D);
 trial_objective = zeros(1,ObjectiveDimension);
 
@@ -26,38 +27,19 @@ count = 1;
 while (count <= gen_max)
     for i = 1:NP
         %get distinct a,b,c
-        while (1)
-            a = randi(NP);
-            if a ~=  i
-                break;
-            end
-        end
-        while (1)
-            b = randi(NP);
-            if b~= i && b ~= a
-                break;
-            end
-        end
-        while(1)
-            c = randi(NP);
-            if (c~= i) && (c ~= a) && (c~= b)
-                break;
-            end
-        end
-        
-        j = randi(D); 
-        
+        rev = randperm(NP);
+        a = rev(1);
+        b = rev(2);
+        c = rev(3);
+
+        mutant = parent(c,:) + F*(parent(a,:)-parent(b,:));
         for k = 1:D
             if (rand()<CR || k == D)
-                trial(j) = parent(c,j) + F*(parent(a,j)-parent(b,j));
-               % trial(j) = mod(trial(j),1);
+                trial(k) = mutant(k);
+                if trial
             else
-                trial(j) = parent(i,j);
+                trial(k) = parent(i,k);
             end
-            j = j+1;
-            if j>D
-                j=1;
-            end 
         end
         
         trial_objective = Problem(trial,D);
@@ -65,11 +47,9 @@ while (count <= gen_max)
         if testDominate(trial_objective,f(i,:),ObjectiveDimension)
             parent(i,:) = trial;
             f(i,:) = trial_objective;
-        else
-            if (~testDominate(f(i,:),trial_objective,ObjectiveDimension)) %indifferent. add to NP
+        elseif (~testDominate(f(i,:),trial_objective,ObjectiveDimension)) %indifferent. add to NP    
                 parent = [parent;trial];
                 f = [f;trial_objective];
-            end
         end         
     end 
     if(length(f)>NP) %pruning
@@ -95,10 +75,9 @@ while (count <= gen_max)
             f2(renew_count+1:renew_count+length(qqq),:) = f(qqq,:);
             renew_count = renew_count+length(qqq);
             i = i+1;
-        end
-        
+        end 
     end
-    count  = count + 1
+   count = count + 1
 end
 
 for i = 1:NP
