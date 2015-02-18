@@ -32,12 +32,6 @@ while (count <= gen_max)
                 if rand() > F
                     trial(k) = parent(a,k);
                 else
-                    if rand()>0.5
-                        trial(k) = parent(b,k);
-                    else
-                        trial(k) = parent(c,k);
-                    end
-                end
             else
                 trial(k) = parent(i,k);
             end

@@ -1,4 +1,0 @@
-%%load the repositories.
-
-%%get the XML file according to the RepositoryURL
-textread('RepositoryURL.txt','%s')
