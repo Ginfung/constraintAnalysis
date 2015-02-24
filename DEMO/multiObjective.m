@@ -1,10 +1,10 @@
 clear all
-Problem = @SXFM_e1;
+Problem = @SXFM_web_portal;
 NP = 100;
 CR = 0.3;
 F = 0.3;
 gen_max = 50;
-D = 10;
+D = 28;
 ObjectiveDimension = 2;
 
 parent = randi([0 1],NP,D); %initialize in the binary space

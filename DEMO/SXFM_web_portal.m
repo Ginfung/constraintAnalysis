@@ -1,5 +1,5 @@
 function [ f ] = SXFM_web_portal( x,n )
-f = zeros(1,5);
+f = zeros(1,2);
 % ALL OBJECTIVES ARE SHOULD BE MINIMIZED
 %f(1) is total cost
 %f(2) is feature that were NOT used before
@@ -42,15 +42,25 @@ persistence = xml + database == 1;
 ri = data_storage + data_transfer + user_auth > 1;
 performance = ms + sec + min == 1;
 
-cont = static
-text = html
-web_server = cont
-web_portal = web_server
-banners = ban_img
-site_stats = basic
-site_search = images | text
-ad_server = reports & banners
-add_services = site_stats | site_search | ad_server
+cont = static;
+text = html;
+web_server = cont;
+web_portal = web_server;
+banners = ban_img;
+site_stats = basic;
+site_search = images | text;
+ad_server = reports & banners;
+add_services = site_stats | site_search | ad_server;
 
+C4= (~data_transfer) | https;
+C3= (~db) | database;
+C6= (~https) |(~ms);
+C5= (~file) | ftp;
+C1= (~keyword) | text;
+C2= (~dynamic) | active;
+
+f(1) = web_portal+add_services+site_stats+basic+advanced+site_search+images+text+html+dynamic+ad_server+reports+popups+banners+ban_img+ban_flash+keyword+web_server+logging+db+file+protocol+nttp+ftp+https+cont+static+active+asp+php+jsp+cgi+persistence+xml+database+ri+data_storage+data_transfer+user_auth+performance+ms+sec+min;
+f(1) = 43-f(1);
+f(2) = 6-(C1+C2+C3+C4+C5+C6);
 end
 
