@@ -1,11 +1,32 @@
 clear all
+
+global totalFeatureNum; %set up the total number of features
+global totalLeavesNum;  %set up the total number of leaves, which should be determined
+global cost;
+global usedbefore;
+global defects;
+
+totalFeatureNum = 43;
+totalLeavesNum = 28;
+
+cost = rand(1,totalFeatureNum)*10+5; % cost between 5.0 and 15.0
+usedbefore = randi([0 1],1,totalFeatureNum); %usedbefore is a binary random variable
+defects = rand(1,totalFeatureNum) * 10; %defects between 0 and 10
+
+for i = 1:totalFeatureNum
+    if usedbefore(i) == 0
+        defects(i) = 0;
+    end
+end
+
+
 Problem = @SXFM_web_portal;
 NP = 100;
 CR = 0.3;
 F = 0.3;
 gen_max = 50;
-D = 28;
-ObjectiveDimension = 2;
+D = totalLeavesNum;
+ObjectiveDimension = 5;
 
 parent = randi([0 1],NP,D); %initialize in the binary space
 f = zeros(NP,ObjectiveDimension);
