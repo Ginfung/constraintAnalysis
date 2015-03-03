@@ -55,3 +55,4 @@ C6: (~https) or (~ms)
 C5: (~file) or ftp
 C1: (~keyword) or text
 C2: (~dynamic) or active
+~
