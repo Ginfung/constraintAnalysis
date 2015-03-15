@@ -24,14 +24,14 @@ Problem = @SXFM_web_portal;
 NP = 100; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.3;
 F = 0.3;
-gen_max = 500;
+gen_max = 20;
 D = totalLeavesNum;
 ObjectiveDimension = 5;
 
 parent = randi([0 1],NP,D); %initialize in the binary space
 f = zeros(NP,ObjectiveDimension);
 
-test = zeros(ObjectiveDimension,gen_max);
+evoluationRecord = zeros(ObjectiveDimension,gen_max);
 
 %get the objective for initial parent
 for i = 1:NP
@@ -50,7 +50,7 @@ while (count <= gen_max)
         b = rev(2);
         c = rev(3);
         
-        % Mutation begin
+        %% Mutation begin
         %modified from the idea of continuous differential evaluation
         %!!ALERT: DO NOT take the "amount" of dominance into conderation!!
         for k = 1:D
@@ -68,7 +68,7 @@ while (count <= gen_max)
                 trial(k) = parent(i,k);
             end
         end
-        %
+        %%
         trial_objective = Problem(trial,D);
         
         if testDominate(trial_objective,f(i,:),ObjectiveDimension)
@@ -112,13 +112,21 @@ while (count <= gen_max)
         f(i,:) = Problem(parent(i,:),D);
     end
     for i = 1:ObjectiveDimension
-        test(i,count) = mean(f(:,i));
+        evoluationRecord(i,count) = mean(f(:,i));
     end
     count  = count + 1
 end
 
-for i = 1:NP
-    f(i,:) = Problem(parent(i,:),D);
+%% draw the evaluation record
+% Map to the unit interval
+evoluationRecord = evoluationRecord';
+for i = 1 : ObjectiveDimension
+    a = max(evoluationRecord(:,i));
+    b = min(evoluationRecord(:,i));
+    delta = a - b;
+    evoluationRecord(:,i) = (evoluationRecord(:,i)-b)/delta;
 end
+plot(evoluationRecord);figure(gcf);
+%%
 
 
