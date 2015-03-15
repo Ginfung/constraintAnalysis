@@ -31,7 +31,7 @@ ObjectiveDimension = 5;
 parent = randi([0 1],NP,D); %initialize in the binary space
 f = zeros(NP,ObjectiveDimension);
 
-test = zeros(1,gen_max);
+test = zeros(ObjectiveDimension,gen_max);
 
 %get the objective for initial parent
 for i = 1:NP
@@ -111,7 +111,9 @@ while (count <= gen_max)
     for i = 1:NP
         f(i,:) = Problem(parent(i,:),D);
     end
-    test(1,count) = mean(f(:,1));
+    for i = 1:ObjectiveDimension
+        test(i,count) = mean(f(:,i));
+    end
     count  = count + 1
 end
 
