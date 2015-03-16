@@ -46,7 +46,7 @@ objBound_Min(5) = 0; objBound_Max(5) = totalFeatureNum;
 
 %% step 1: Initializaiton
 P = randi([0 1],alpha,D); % initialize an initial population P of size alpha
-PP = randi([0 1],alpha,D); % mating pool, randomly initialized. size equals alpha
+PP = randi([0 1],beta,D); % mating pool, randomly initialized. size equals alpha
 P = [P;PP]; % append mating pool to initialization pool
 
 obj = zeros(size(P,1),ObjectiveDimension);
