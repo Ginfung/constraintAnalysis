@@ -53,6 +53,7 @@ while (count <= gen_max)
         %% Mutation begin
         %modified from the idea of continuous differential evaluation
         %!!ALERT: DO NOT take the "amount" of dominance into conderation!!
+        %(Solved in IBEA-- Indicator)
         for k = 1:D
             if (rand()<CR || k == D)
                 if rand() > F
