@@ -24,7 +24,7 @@ Problem = @SXFM_web_portal;
 NP = 100; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.3;
 F = 0.3;
-gen_max = 500;
+gen_max = 30;
 D = totalLeavesNum;
 ObjectiveDimension = 5;
 
@@ -121,12 +121,12 @@ end
 %% draw the evaluation record
 % Map to the unit interval
 evoluationRecord = evoluationRecord';
-for i = 1 : ObjectiveDimension
-    a = max(evoluationRecord(:,i));
-    b = min(evoluationRecord(:,i));
-    delta = a - b;
-    evoluationRecord(:,i) = (evoluationRecord(:,i)-b)/delta;
-end
+% for i = 1 : ObjectiveDimension
+%     a = max(evoluationRecord(:,i));
+%     b = min(evoluationRecord(:,i));
+%     delta = a - b;
+%     evoluationRecord(:,i) = (evoluationRecord(:,i)-b)/delta;
+% end
 plot(evoluationRecord);figure(gcf);
 %%
 
