@@ -1,0 +1,25 @@
+function [ Fitness ] = Fitness( P, sizeofP )
+global k;
+global Problem;
+global ObjectiveDimension;
+global D;
+
+Fitness = zeros(1,sizeofP);
+
+obj = zeros(sizeofP,ObjectiveDimension);
+for i = 1:sizeofP
+    obj(i,:) = Problem(P(i),D);
+end
+
+for  i = 1:sizeofP
+    f_temp = Problem(P(i),D);
+    for j = 1:sizeofP
+        if j == i
+            continue;
+        end
+        indicator = epsIndicator(Problem(P(j),D),f_temp,ObjectiveDimension);
+        Fitness(i) = Fitness(i) + ;
+    end
+end
+end
+
