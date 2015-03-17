@@ -12,7 +12,7 @@ global ObjectiveDimension;
 %% set up IBEA parameters
 alpha = 100; % population size
 beta = 30; % mating pool size
-D = totalLeavesNum; % decision space dimension 
+D = totalLeavesNum; % decision space dimension
 k = 1; % fitness scaling factor. Defaultly 1.
 
 
@@ -35,12 +35,17 @@ F = Fitness(P,obj);
 gen  = 1;
 while (gen <= gen_max)
     gen
+    F = Fitness(P,obj);
     %% step 3: Environment selection
     while (size(P,1) > alpha)
         xstar = find(F==min(F));
+        for i = 1:size(F,2)
+            F(1,i) = F(1,i)+exp(-epsAddIndicator(obj(xstar,:),obj(i,:),ObjectiveDimension)/k);
+        end
         P = [P(1:xstar-1,:);P(xstar+1:end,:)]; % remove xstar from P
         obj = [obj(1:xstar-1,:);obj(xstar+1:end,:)]; % always let obj follows the change of P
-        F = Fitness(P,obj); % recalc fitness
+        F = [F(1,1:xstar-1),F(1,xstar+1:end)];
+        
     end
     for i = 1:ObjectiveDimension
         evoluationRecord(i,gen) = mean(obj(:,i));

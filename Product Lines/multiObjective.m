@@ -62,7 +62,7 @@ while (gen <= gen_max)
             f = [f;trial_objective];
         end
     end
-    if(length(f) > NP) %pruning s.t. size = 4NP-->NP
+    if(length(f) > 4*NP) %pruning s.t. size = 4NP-->NP
         rank = fastNonDominatedSort(f,length(f),ObjectiveDimension);
         parent2 = zeros(NP,D);
         f2 = zeros(NP,ObjectiveDimension);
@@ -84,18 +84,19 @@ while (gen <= gen_max)
                 f = f2;
                 parent = parent2;
                 break;
+            else
+                parent2(renew_count+1:renew_count+length(qqq),:) = parent(qqq,:);
+                f2(renew_count+1:renew_count+length(qqq),:) = f(qqq,:);
+                renew_count = renew_count+length(qqq);
+                i = i+1;
             end
-            parent2(renew_count+1:renew_count+length(qqq),:) = parent(qqq,:);
-            f2(renew_count+1:renew_count+length(qqq),:) = f(qqq,:);
-            renew_count = renew_count+length(qqq);
-            i = i+1;
         end
     end
-    for i = 1:NP
-        f(i,:) = Problem(parent(i,:),D);
-    end
+%     for i = 1:NP
+%         f(i,:) = Problem(parent(i,:),D);
+%     end
     for i = 1:ObjectiveDimension
-        evoluationRecord(i,gen) = mean(f(:,i));
+        evoluationRecord(i,gen) = mean(f(1:NP,i));
     end
     gen  = gen + 1;
 end

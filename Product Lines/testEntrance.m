@@ -11,7 +11,7 @@ global usedbefore;
 global defects;
 global Problem;
 global ObjectiveDimension;
-global objBound_Min;
+global objBound_Min;    
 global objBound_Max;
 
 %% Initial the feature attributes.
@@ -48,7 +48,7 @@ objBound_Min(5) = 0;
 objBound_Max(5) = totalFeatureNum;
 
 %% Execute the testing
-[parent, f, evoluationRecord] = IBEA(50);
+[parent, f, evoluationRecord] = multiObjective(50);
 
 %% Analysis. Visualization
 
