@@ -1,30 +1,17 @@
-clear all
+
 
 global totalFeatureNum; %set up the total number of features
 global totalLeavesNum;  %set up the total number of leaves, which should be determined
 global cost;
 global usedbefore;
 global defects;
-
-totalFeatureNum = 43;
-totalLeavesNum = 28;
-
-cost = rand(1,totalFeatureNum)*10+5; % cost between 5.0 and 15.0
-usedbefore = randi([0 1],1,totalFeatureNum); %usedbefore is a binary random variable
-defects = rand(1,totalFeatureNum) * 10; %defects between 0 and 10
-
-for i = 1:totalFeatureNum
-    if usedbefore(i) == 0
-        defects(i) = 0;
-    end
-end
+global Problem;
 
 
-Problem = @SXFM_web_portal;
 NP = 100; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.3;
 F = 0.3;
-gen_max = 500;
+gen_max = 30;
 D = totalLeavesNum;
 ObjectiveDimension = 5;
 
@@ -53,6 +40,7 @@ while (count <= gen_max)
         %% Mutation begin
         %modified from the idea of continuous differential evaluation
         %!!ALERT: DO NOT take the "amount" of dominance into conderation!!
+        %(Solved in IBEA-- Indicator)
         for k = 1:D
             if (rand()<CR || k == D)
                 if rand() > F
@@ -79,7 +67,7 @@ while (count <= gen_max)
             f = [f;trial_objective];
         end
     end
-    if(length(f) > 4*NP) %pruning s.t. size = 4NP-->NP
+    if(length(f) > NP) %pruning s.t. size = 4NP-->NP
         rank = fastNonDominatedSort(f,length(f),ObjectiveDimension);
         parent2 = zeros(NP,D);
         f2 = zeros(NP,ObjectiveDimension);
@@ -118,6 +106,15 @@ while (count <= gen_max)
 end
 
 %% draw the evaluation record
-% Map to the unit interval so that you can see the
+% Map to the unit interval
+evoluationRecord = evoluationRecord';
+% for i = 1 : ObjectiveDimension
+%     a = max(evoluationRecord(:,i));
+%     b = min(evoluationRecord(:,i));
+%     delta = a - b;
+%     evoluationRecord(:,i) = (evoluationRecord(:,i)-b)/delta;
+% end
+plot(evoluationRecord);figure(gcf);
+%%
 
 

@@ -1,32 +1,13 @@
-clear all
+function [parent, f, evoluationRecord] = multiObjective(gen_max)
 
-global totalFeatureNum; %set up the total number of features
 global totalLeavesNum;  %set up the total number of leaves, which should be determined
-global cost;
-global usedbefore;
-global defects;
+global Problem;
+global ObjectiveDimension;
 
-totalFeatureNum = 43;
-totalLeavesNum = 28;
-
-cost = rand(1,totalFeatureNum)*10+5; % cost between 5.0 and 15.0
-usedbefore = randi([0 1],1,totalFeatureNum); %usedbefore is a binary random variable
-defects = rand(1,totalFeatureNum) * 10; %defects between 0 and 10
-
-for i = 1:totalFeatureNum
-    if usedbefore(i) == 0
-        defects(i) = 0;
-    end
-end
-
-
-Problem = @SXFM_web_portal;
 NP = 100; % MUAT LARGER THAN OBJECTIVEMIMENSION AND D!
 CR = 0.3;
 F = 0.3;
-gen_max = 30;
 D = totalLeavesNum;
-ObjectiveDimension = 5;
 
 parent = randi([0 1],NP,D); %initialize in the binary space
 f = zeros(NP,ObjectiveDimension);
@@ -41,8 +22,9 @@ end
 trial = zeros(1,D);
 trial_objective = zeros(1,ObjectiveDimension);
 
-count = 1;
-while (count <= gen_max)
+gen = 1;
+while (gen <= gen_max)
+    gen
     for i = 1:length(f)
         %get distinct a,b,c
         rev = randperm(length(f));
@@ -113,9 +95,9 @@ while (count <= gen_max)
         f(i,:) = Problem(parent(i,:),D);
     end
     for i = 1:ObjectiveDimension
-        evoluationRecord(i,count) = mean(f(:,i));
+        evoluationRecord(i,gen) = mean(f(:,i));
     end
-    count  = count + 1
+    gen  = gen + 1;
 end
 
 %% draw the evaluation record
@@ -127,7 +109,7 @@ evoluationRecord = evoluationRecord';
 %     delta = a - b;
 %     evoluationRecord(:,i) = (evoluationRecord(:,i)-b)/delta;
 % end
-plot(evoluationRecord);figure(gcf);
+%plot(evoluationRecord);figure(gcf);
 %%
 
-
+end
