@@ -36,16 +36,28 @@ ObjectiveDimension = 5;                      % objective(goal) space dimension %
 %f(5) is # of feature NOT provided
 objBound_Min = zeros(1,ObjectiveDimension);
 objBound_Max = zeros(1,ObjectiveDimension);
-objBound_Min(1) = 0; 
-objBound_Max(1) = max(cost);
-objBound_Min(2) = 0; 
+objBound_Min(1) = 0;
+objBound_Max(1) = sum(cost);
+objBound_Min(2) = 0;
 objBound_Max(2) = totalFeatureNum;
-objBound_Min(3) = 0; 
-objBound_Max(3) = totalFeatureNum;
-objBound_Min(4) = 0; 
+objBound_Min(3) = 0;
+objBound_Max(3) = sum(defects);
+objBound_Min(4) = 0;
 objBound_Max(4) = 6;
-objBound_Min(5) = 0; 
+objBound_Min(5) = 0;
 objBound_Max(5) = totalFeatureNum;
 
 %% Execute the testing
-IBEA(2);
+[parent, f, evoluationRecord] = IBEA(50);
+
+%% Analysis. Visualization
+
+score = evoluationRecord;
+for  i = 1: ObjectiveDimension
+    score(:,i) = 1 - (evoluationRecord(:,i)-min(evoluationRecord(:,i)))/(max(evoluationRecord(:,i))-min(evoluationRecord(:,i)));
+end
+% score(:,2) = 1 - score(:,2)/totalFeatureNum;
+% score(:,3) = 1 - score(:,3)/sum(defects);
+% score(:,4) = 1 - score(:,4)/6; %CORRECT CT
+% score(:,5) = 1 - score(:,5)/totalFeatureNum;
+
