@@ -17,4 +17,3 @@ for x = 1:length(lst1)
 end
 a12 = (more+0.5*same)/(length(lst1)*length(lst2));
 end
-
