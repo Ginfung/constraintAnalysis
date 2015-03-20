@@ -1,36 +1,55 @@
-function [ tile ] = Xtile( lst,low,high )
-function i = findi(m)
-i=0;
-while m>sig(i+1)
-    i = i+1;
-end
-end
-% Showing the percentage in text
-tile = '(     |     )';
-pos = [2,3,4,5,6,8,9,10,11,12];
-lst = sort(lst);
-len = length(lst);
-sig = zeros(1,11);
-sig(1) = low;
-for i = 2:11
-    sig(i) = low+(high-low)*(i-1)/10;
-end
+% reference : http://unbox.org/open/trunk/472/14/spring/var/code/do.html
+% 10-30% and 70-90% are marked as dashes('-')
 
-tile(pos(findi(median(lst)))) = '*'; % mark the median
-p1 = lst(int64(len*0.1));
-p3 = lst(int64(len*0.3));
-p5 = lst(int64(len*0.5));
-p7 = lst(int64(len*0.7));
-p9 = lst(int64(len*0.9));
-if p3-p1 > (high-low)/40 % draw 10%~30%
-    for i = findi(p1):findi(p3)
-        tile(pos(i)) = '-';
+function [ tile ] = Xtile( lst,low,high,width )
+
+slst = sort(lst);
+len  = length(lst);
+low = min(low,slst(1));
+high = max(high,slst(len));
+
+
+    function v = getposvalue (p)
+        v = slst(int64((len*p)+0.5));
     end
-end
-if p9-p7 > (high-low)/40 % draw 70%~90%
-    for i = findi(p7):findi(p9)
-        tile(pos(i)) = '-';
+    
+    function place = locate(x)
+        place = int64(width * (x-low)/(high-low) +0.5);
     end
-end
+
+    v1 = getposvalue(0.1);
+    v3 = getposvalue(0.3);
+   % v5 = getposvalue(0.5);
+    v7 = getposvalue(0.7);
+    v9 = getposvalue(0.9);
+    
+    p1 = locate(v1);
+    p3 = locate(v3);
+    %p5 = locate(v5);
+    p7 = locate(v7);
+    p9 = locate(v9);
+    pmedian = locate(median(lst));
+
+    tile = '(';
+    for i = 1:p1-1
+        tile = strcat(tile,'~');
+    end
+    for i = p1:p3-1
+        tile = strcat(tile,'-');
+    end
+    for i = p3:p7-1
+        tile = strcat(tile,'~');
+    end
+    for i = p7:p9-1
+        tile = strcat(tile,'-');
+    end
+    for i = p9:width
+        tile = strcat(tile,'~');
+    end
+    
+    tile(pmedian+1) = '*';
+    tile = strcat(tile,')');
+    tile = strcat(tile(1:int64(width/2)+1),'|',tile(int64(width/2)+2:width+2));
+    tile = strrep(tile,'~',' ');
 end
 
