@@ -1,7 +1,7 @@
 % get the result from IBEA optimizer
 % modified from Sayyad, Abdel Salam, Tim Menzies, and Hany Ammar. "On the value of user preferences in search-based software engineering: A case study in software product lines." Software engineering (ICSE), 2013 35th international conference on. IEEE, 2013.
 
-function [parent,f,evoluationRecord] = IBEA(gen_max)
+function [parent,f,evoluationRecord,costRecord] = IBEA(gen_max)
 
 global totalLeavesNum;  %set up the total number of leaves, which should be determined
 global k;
@@ -17,7 +17,7 @@ k = 1; % fitness scaling factor. Defaultly 1.
 
 
 evoluationRecord = zeros(ObjectiveDimension,gen_max);
-
+costRecord = zeros(gen_max,alpha);
 %% step 1: Initializaiton
 P = randi([0 1],alpha,D); % initialize an initial population P of size alpha
 PP = randi([0 1],beta,D); % mating pool, randomly initialized. size equals alpha
@@ -50,6 +50,7 @@ while (gen <= gen_max)
     for i = 1:ObjectiveDimension
         evoluationRecord(i,gen) = mean(obj(:,i));
     end
+    costRecord(gen,:) = obj(1:alpha,1)';
     %% step 5: Mating selection
     % binary tournament selection
     PP = zeros(beta,D);

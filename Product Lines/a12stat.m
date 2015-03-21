@@ -1,6 +1,8 @@
 function [ a12 ] = a12stat( lst1,lst2 )
 % Return how often we seen larger numbers in X than Y
-% Reference: Vargha, András, and Harold D. Delaney. "A critique and improvement of the CL common language effect size statistics of McGraw and Wong." Journal of Educational and Behavioral Statistics 25.2 (2000): 101-132.
+% Reference: Vargha, András, and Harold D. Delaney. "A critique and improvement 
+% of the CL common language effect size statistics of McGraw and Wong." 
+% Journal of Educational and Behavioral Statistics 25.2 (2000): 101-132.
 more = 0;
 same = 0;
 lst1 = sort(lst1);
