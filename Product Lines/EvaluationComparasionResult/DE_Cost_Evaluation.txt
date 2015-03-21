@@ -1,3 +1,7 @@
+% Differential Evaluation
+% Generation = 50
+% Xtile for the cost in each generation
+
 (                 ----------   |   *     ------               )
 (                -----------   |   *     ------               )
 (             ----------     * |     -------                  )
