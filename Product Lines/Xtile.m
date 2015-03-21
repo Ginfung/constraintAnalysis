@@ -19,7 +19,7 @@ high = max(high,slst(len));
 
     v1 = getposvalue(0.1);
     v3 = getposvalue(0.3);
-   % v5 = getposvalue(0.5);
+    v5 = getposvalue(0.5);
     v7 = getposvalue(0.7);
     v9 = getposvalue(0.9);
     
@@ -50,6 +50,7 @@ high = max(high,slst(len));
     tile(pmedian+1) = '*';
     tile = strcat(tile,')');
     tile = strcat(tile(1:int64(width/2)+1),'|',tile(int64(width/2)+2:width+2));
+    tile = strcat(tile,'~~~~', num2str(v1),',~',num2str(v3),',~',num2str(v5),',~',num2str(v7),',~',num2str(v9));
     tile = strrep(tile,'~',' ');
 end
 
