@@ -1,4 +1,4 @@
-function [parent, f, evoluationRecord] = multiObjective(gen_max)
+function [parent, f, evoluationRecord,costRecord] = multiObjective(gen_max)
 
 global totalLeavesNum;  %set up the total number of leaves, which should be determined
 global Problem;
@@ -13,6 +13,7 @@ parent = randi([0 1],NP,D); %initialize in the binary space
 f = zeros(NP,ObjectiveDimension);
 
 evoluationRecord = zeros(ObjectiveDimension,gen_max);
+costRecord = zeros(gen_max,NP);
 
 %get the objective for initial parent
 for i = 1:NP
@@ -20,7 +21,6 @@ for i = 1:NP
 end
 
 trial = zeros(1,D);
-trial_objective = zeros(1,ObjectiveDimension);
 
 gen = 1;
 while (gen <= gen_max)
@@ -92,12 +92,11 @@ while (gen <= gen_max)
             end
         end
     end
-%     for i = 1:NP
-%         f(i,:) = Problem(parent(i,:),D);
-%     end
     for i = 1:ObjectiveDimension
         evoluationRecord(i,gen) = mean(f(1:NP,i));
     end
+    
+    costRecord(gen,:) = f(1:NP,1)';
     gen  = gen + 1;
 end
 

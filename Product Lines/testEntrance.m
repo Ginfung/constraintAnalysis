@@ -48,14 +48,14 @@ objBound_Min(5) = 0;
 objBound_Max(5) = totalFeatureNum;
 
 %% Execute the testing
-[parent, f, evoluationRecord] = multiObjective(50);
+[parent, f, evoluationRecord,costRecord] = multiObjective(50);
 
 %% Analysis. Visualization
 
-score = evoluationRecord;
-for  i = 1: ObjectiveDimension
-    score(:,i) = 1 - (evoluationRecord(:,i)-min(evoluationRecord(:,i)))/(max(evoluationRecord(:,i))-min(evoluationRecord(:,i)));
-end
+% score = evoluationRecord;
+% for  i = 1: ObjectiveDimension
+%     score(:,i) = 1 - (evoluationRecord(:,i)-min(evoluationRecord(:,i)))/(max(evoluationRecord(:,i))-min(evoluationRecord(:,i)));
+% end
 % score(:,2) = 1 - score(:,2)/totalFeatureNum;
 % score(:,3) = 1 - score(:,3)/sum(defects);
 % score(:,4) = 1 - score(:,4)/6; %CORRECT CT
