@@ -32,10 +32,17 @@ while (gen <= gen_max)
         b = rev(2);
         c = rev(3);
         
+        while a==i || b == i || c==i
+            %get distinct a,b,c
+             rev = randperm(length(f));
+             a = rev(1);
+             b = rev(2);
+             c = rev(3);
+        end
         %% Mutation begin
         %modified from the idea of continuous differential evaluation
         %!!ALERT: DO NOT take the "amount" of dominance into conderation!!
-        %(Solved in IBEA-- Indicator)
+        %(Solved in IBEA-- Indicator based evolution algorithm)
         for k = 1:D
             if (rand()<CR || k == D)
                 if rand() > F
@@ -62,7 +69,7 @@ while (gen <= gen_max)
             f = [f;trial_objective];
         end
     end
-    if(length(f) > 4*NP) %pruning s.t. size = 4NP-->NP
+    if(length(f) > NP) %pruning s.t. size = 4NP-->NP
         rank = fastNonDominatedSort(f,length(f),ObjectiveDimension);
         parent2 = zeros(NP,D);
         f2 = zeros(NP,ObjectiveDimension);
