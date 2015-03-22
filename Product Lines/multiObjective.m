@@ -12,7 +12,7 @@ D = totalLeavesNum;
 parent = randi([0 1],NP,D); %initialize in the binary space
 f = zeros(NP,ObjectiveDimension);
 
-evoluationRecord = zeros(ObjectiveDimension,gen_max);
+evoluationRecord = zeros(gen_max,ObjectiveDimension);
 costRecord = zeros(gen_max,NP);
 
 %get the objective for initial parent
@@ -100,7 +100,7 @@ while (gen <= gen_max)
         end
     end
     for i = 1:ObjectiveDimension
-        evoluationRecord(i,gen) = mean(f(1:NP,i));
+        evoluationRecord(gen,i) = median(f(1:NP,i));
     end
     
     costRecord(gen,:) = f(1:NP,1)';
@@ -109,7 +109,6 @@ end
 
 %% draw the evaluation record
 % Map to the unit interval
-evoluationRecord = evoluationRecord';
 % for i = 1 : ObjectiveDimension
 %     a = max(evoluationRecord(:,i));
 %     b = min(evoluationRecord(:,i));

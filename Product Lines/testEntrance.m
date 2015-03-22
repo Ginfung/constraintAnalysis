@@ -48,7 +48,7 @@ objBound_Min(5) = 0;
 objBound_Max(5) = totalFeatureNum;
 
 %% Execute the testing
-[parent, f, evoluationRecord,costRecord] = IBEA(50);
+[parent, f, evoluationRecord,costRecord] = multiObjective(150);
 
 %% Analysis. Visualization
 
