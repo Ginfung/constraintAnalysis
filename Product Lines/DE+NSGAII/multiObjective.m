@@ -103,7 +103,7 @@ while (gen <= gen_max)
         evoluationRecord(gen,i) = median(f(1:NP,i));
     end
     
-    costRecord(gen,:) = f(1:NP,1)';
+    costRecord(gen,:) = f(1:NP,2)';
     gen  = gen + 1;
 end
 

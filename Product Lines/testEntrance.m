@@ -55,8 +55,11 @@ objBound_Min(2) = 0;
 objBound_Max(2) = totalFeatureNum;
 
 %% Execute the testing
+cd('DE+NSGAII')
+[parent1, f1, evoluationRecord1,featureRecord1] = multiObjective(50);
+cd('..');
 cd('IBEA')
-[parent, f, evoluationRecord,costRecord] = IBEA(100);
+[parent2, f2, evoluationRecord2,featureRecord2] = IBEA(50);
 cd('..');
 %% Analysis. Visualization
 
