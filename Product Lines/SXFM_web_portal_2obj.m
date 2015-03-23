@@ -1,5 +1,5 @@
-function [ f ] = SXFM_web_portal( x,n )
-f = zeros(1,5);
+function [ f ] = SXFM_web_portal_2obj( x,n )
+f = zeros(1,2);
 % ------Generated automatically by XMLFeatureModelParser.java-------
 % ALL OBJECTIVES ARE SHOULD BE MINIMIZED
 %f(1) is total cost
@@ -8,9 +8,6 @@ f = zeros(1,5);
 %f(4) is # of rule violations
 %f(5) is # of feature NOT provided
 
-global cost;
-global usedbefore;
-global defects;
 global totalFeatureNum;
 
 basic = x(1);
@@ -66,20 +63,9 @@ C1= (~keyword) | text;
 C2= (~dynamic) | active;
 
 
-%f(1) is total cost
-f(1) = sum(cost.*x);
-%f(2) is number of  feature that were NOT used before
-f(2) = 0;
-for i = 1:totalFeatureNum
-    if usedbefore(i) == 0 && x(i) == 1
-        f(2) = f(2)+1;
-    end
-end
-%f(3) is total number of known defects
-f(3) = sum(defects.*x);
-%f(4) is # of rule violations
-f(4) = 6 - (C1+C2+C3+C4+C5+C6);
-%f(5) is # of feature NOT provided
-f(5) = totalFeatureNum - sum(x);
-end
 
+%f(4) is # of rule violations
+f(1) = 6 - (C1+C2+C3+C4+C5+C6);
+%f(5) is # of feature NOT provided
+f(2) = totalFeatureNum - sum(x);
+end
