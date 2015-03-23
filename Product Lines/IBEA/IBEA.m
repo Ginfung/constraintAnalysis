@@ -1,7 +1,7 @@
 % get the result from IBEA optimizer
 % modified from Sayyad, Abdel Salam, Tim Menzies, and Hany Ammar. "On the value of user preferences in search-based software engineering: A case study in software product lines." Software engineering (ICSE), 2013 35th international conference on. IEEE, 2013.
 
-function [parent,f,evoluationRecord,costRecord] = IBEA(gen_max)
+function [parent,f,evoluationRecord,featureRecord] = IBEA(gen_max)
 
 global totalLeavesNum;  %set up the total number of leaves, which should be determined
 global k;
@@ -16,8 +16,8 @@ D = totalLeavesNum; % decision space dimension
 k = 1; % fitness scaling factor. Defaultly 1.
 
 
-evoluationRecord = zeros(ObjectiveDimension,gen_max);
-costRecord = zeros(gen_max,alpha);
+evoluationRecord = zeros(gen_max,ObjectiveDimension);
+featureRecord = zeros(gen_max,alpha);
 %% step 1: Initializaiton
 P = randi([0 1],alpha,D); % initialize an initial population P of size alpha
 PP = randi([0 1],beta,D); % mating pool, randomly initialized. size equals alpha
@@ -45,12 +45,11 @@ while (gen <= gen_max)
         P = [P(1:xstar-1,:);P(xstar+1:end,:)]; % remove xstar from P
         obj = [obj(1:xstar-1,:);obj(xstar+1:end,:)]; % always let obj follows the change of P
         F = [F(1,1:xstar-1),F(1,xstar+1:end)];
-        
     end
     for i = 1:ObjectiveDimension
-        evoluationRecord(i,gen) = mean(obj(:,i));
+        evoluationRecord(gen,i) = median(obj(:,i));
     end
-    costRecord(gen,:) = obj(1:alpha,1)';
+    featureRecord(gen,:) = obj(:,2)';
     %% step 5: Mating selection
     % binary tournament selection
     PP = zeros(beta,D);
@@ -63,7 +62,18 @@ while (gen <= gen_max)
         PP(i,:) = P(a,:);
     end
     %% step 6: Variation
-    P = [P;PP];
+    for i = 1:beta
+        % crossover
+        p1 = randi(beta);
+        p2 = randi(beta);
+        offspring = TwoPointCrossover(PP(p1,:),PP(p2,:));
+        % mutate
+        if(rand()<0.9)
+            m = randi(D);
+            offspring(m) = ~offspring(m);
+        end
+        P = [P;offspring];
+    end
     for i = 1:size(P,1)
         obj(i,:) = Problem(P(i,:),D);
     end
@@ -75,7 +85,6 @@ f = obj(1:alpha,:);
 
 %% draw the evaluation record
 % Map to the unit interval
-evoluationRecord = evoluationRecord';
 % for i = 1 : ObjectiveDimension
 %     a = max(evoluationRecord(:,i));
 %     b = min(evoluationRecord(:,i));
