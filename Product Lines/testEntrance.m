@@ -60,13 +60,15 @@ objBound_Max(5) = totalFeatureNum;
 % objBound_Min(4) = 0;
 % objBound_Max(4) = totalFeatureNum;
 %% Execute the testing
-generation = 150;
-% cd('DE+NSGAII')
-% [parent1, f1, evoluationRecord1,featureRecord1] = multiObjective(generation);
-% cd('..');
+generation = 500;
+%  cd('DE+NSGAII')
+%  [parent1, f1, evoluationRecord1,featureRecord1] = multiObjective(generation);
+%  cd('..');
 cd('IBEA')
 [parent2, f2, evoluationRecord2,featureRecord2] = IBEA(generation);
 cd('..');
+
+
 %% Analysis. Visualization
 
 % score = evoluationRecord;
