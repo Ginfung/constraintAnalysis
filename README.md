@@ -3,6 +3,7 @@ Project for CSC510 2015 spring
 
 ## Background
 Modern software engineering is becoming more and more complex. Some commercial software platforms are required to equip with hundreds, even thousands of features, such as enable security network, enable scalable database, customizable GUI, etc. SPLOT(Software Product Lines Online Tools) contains hundreds of feature model instances. Some of them has more than 300 features.  
+
 Among all of the features in a model, there are some constraints. That is, some features are related to each other.  
 Implementing all features in a software project maybe impossible. We need some tools to determine which feature should be furnished at first. A good plan can shorten development time or cost, make the product more competitive in market.
 
@@ -10,7 +11,15 @@ Implementing all features in a software project maybe impossible. We need some t
 This is a very simple feature model.
 ![feature1](./img/eshopmodel.jpg)
 
+In this model, E-shop can be divided into 4 sub-feature points: catalogue, payment, security and search. Among them, search is optional, and others are mandatory. In payment sub-feature, it can be bank transfer, credit card or both of them. Security can be high or standard.  
 
+If the above are all problem statement, this problem is quit simple, we can pick up the features from root to leaves. But in this example, their is one cross-tree constraint: CreditCard implies High security.  
+
+Due to the cross-tree constraint, the problem become much more complex. As we all know, SAT is a NP-hard problem. Essentially, the cross-tree constrints in this problem can be expressed as SAT.
+
+So ultimately this is a optimization problem, specifically, a binary variable optimization problem. The objectives are: try to find out as much features as possible, and follow as much constraints as possible.
+
+In abstract, 
 
 ## Methods
 
