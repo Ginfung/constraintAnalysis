@@ -8,7 +8,7 @@ Implementing all features in a software project maybe impossible. We need some t
 
 ## Requirements and Goals
 This is a very simple feature model.
-![feature1](./img/eshopmodel)
+![feature1](./img/eshopmodel.jpg)
 
 
 
