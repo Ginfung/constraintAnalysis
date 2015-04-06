@@ -15,11 +15,15 @@ In this model, E-shop can be divided into 4 sub-feature points: catalogue, payme
 
 If the above are all problem statement, this problem is quit simple, we can pick up the features from root to leaves. But in this example, their is one cross-tree constraint: CreditCard implies High security.  
 
-Due to the cross-tree constraint, the problem become much more complex. As we all know, SAT is a NP-hard problem. Essentially, the cross-tree constrints in this problem can be expressed as SAT.
+Due to the cross-tree constraint, the problem become much more complex. As we all know, SAT is a NP-hard problem. Essentially, the cross-tree constraints in this problem can be expressed as SAT.
 
 So ultimately this is a optimization problem, specifically, a binary variable optimization problem. The objectives are: try to find out as much features as possible, and follow as much constraints as possible.
 
-In abstract, 
+In abstract, the feature model can be translated into a optimization problem: let the leaves feature be arguments, get the total satisfied feature and satisfied constraint as two objectives. Our goal is to find the settings for leaves feature (which are binary variables) so that two objectives can be optimized.
+
+Also, in the software project, develop cost, precedentness and defects are very important factors which should not be ignored. Consequently, adding these three objective into the problem can make this tool more powerful. How to define the "best" solution and how to solve this problem will be discussed in the latter section.
+
+To summary, this project accepts a feature model, as well as some attributes of features, and returns which feature should be implemented.
 
 ## Methods
 
