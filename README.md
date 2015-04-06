@@ -2,6 +2,9 @@
 Project for CSC510 2015 spring
 
 ## Background
+Modern software engineering is becoming more and more complex. Some commercial software platforms are required to equip with hundreds, even thousands of features, such as enable security network, enable scalable database, customable GUI, etc. SPLOT(Software Product Lines Online Tools) contains hundreds of feature model instances. Some of them has more than 300 features.  
+Among all of the features in a model, there are some constraints. That is, some features are related to each other.  
+Implementing all meatures in a software project maybe impossible. We need some tools to determine which feature should be furnished at first. A good plan can shorten development time or cost, make the product more competitive in market.
 
 ## Goals
 
