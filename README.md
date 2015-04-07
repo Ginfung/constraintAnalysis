@@ -29,7 +29,16 @@ To summary, this project accepts a feature model, as well as some attributes of 
 ### Feature fetch and translation
 SPLOT(splot-research.org) has a open feature model repository. All models in this project are fetched from this repository. In the SPLOT repository, feature models are expressed in SXFM language. To parse it, I apply the parser provided by this repository.
 
-After parsing the feature models, I can get all the leaf features. They are the arguments to be determined. In the "E-Shop" example, arguments include: Catalogue, BankTransfer, CreditCard, HighSecurity, Standard and Search. 
+After parsing the feature models, I can get all the leaf features. They are the arguments to be determined. In the "E-Shop" example, arguments include: Catalogue, BankTransfer, CreditCard, HighSecurity, Standard and Search.
+
+After creating the arguments, I calculated the objectives as follows:
+-  Richness of features: for a non-leaf tree node in feature model, if all mandatory children as satisfied and at least one child to be true, then that non-leaf tree feature is satisfied, i.e., equals 1. For the group node (OR/XOR), following the logic definition and set up the group node. The number of satisfied features indicates the richness of features offering in the output plan.
+-  Constraint violations: after get all the features, check each cross-tree constraints. The number of all unsatisfied constraint is the index of constraint violations.
+- Cost: first assign each feature with a cost. Sum all of the offered feature at the end and get the cost.
+- Defects: This is similar to the cost. 
+- Familiarity: mark which feature has been used before at first. Later count how many features are newly to the developers. This indicates the familiarity for the project.
+
+Among all of these five objectives, we hope the richness, familiarity to be greater and violations, cost and defects to be smaller. For simplicity, I reverse the first two positive objectives. Consequently, I should minimize all of the five objectives.
 
 ## Results
 
