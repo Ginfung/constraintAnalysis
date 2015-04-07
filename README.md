@@ -15,7 +15,7 @@ In this model, E-shop can be divided into 4 sub-feature points: catalogue, payme
 
 If the above are all problem statement, this problem is quit simple, we can pick up the features from root to leaves. But in this example, their is one cross-tree constraint: CreditCard implies High security.  
 
-Due to the cross-tree constraint, the problem become much more complex. As we all know, SAT is a NP-hard problem. Essentially, the cross-tree constraints in this problem can be expressed as SAT.
+Due to the cross-tree constraints, the problem become much more complex. As we all know, SAT is a NP-hard problem. Essentially, the cross-tree constraints in this problem can be expressed as SAT.
 
 So ultimately this is a optimization problem, specifically, a binary variable optimization problem. The objectives are: try to find out as much features as possible, and follow as much constraints as possible.
 
@@ -26,6 +26,10 @@ Also, in the software project, develop cost, precedentness and defects are very 
 To summary, this project accepts a feature model, as well as some attributes of features, and returns which feature should be implemented.
 
 ## Methods
+### Feature fetch and translation
+SPLOT(splot-research.org) has a open feature model repository. All models in this project are fetched from this repository. In the SPLOT repository, feature models are expressed in SXFM language. To parse it, I apply the parser provided by this repository.
+
+After parsing the feature models, I can get all the leaf features. They are the arguments to be determined. In the "E-Shop" example, arguments include: Catalogue, BankTransfer, CreditCard, HighSecurity, Standard and Search. 
 
 ## Results
 
