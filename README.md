@@ -132,6 +132,7 @@ In the differential evaluation, if one trial dominates the original one already 
 Now this report remains one question to solve: when to terminate the algorithm? Obviously the termination should be based on whether the new generation is better than the older one. If the evolutionary process is heading to a wrong direction(the accumulated improvement is negative), the algorithm must be terminated. We can use the probability-- randomly pick up two individuals from two generations, the individual in new generation dominates the old one. If this probability is less than a threshold for many times, we terminates the algorithm. 
 
 ## Future Work
+- How to fasten the fitness for IBEA and DE pruning? They cost most time in the evolutionary process.
 - Actually this problem is a SAT problem, or NP-hard problem. There are many types of solutions to handle this problem besides the genetic algorithm. For example, Chaff algorithm is one of this. Z3, Satz solvers provide another possibility to optimize this problem. In the future, I will try these methods and compare them.
 - All of the processing in this project are automatically tools. But whether we can reduce the search space? In actual application, the developer mush have some priority or preferences, this information may be able to reduce the search space. All of the methods in the current project cannot handle this information. This remains to solve in the future.
 
