@@ -107,7 +107,7 @@ We can see that the algorithm converge at around 100 evolutions.
 
 The following table is the HV and spread indicators for two methods. From it, we can see that IBEA outperform DE.
 
-![indicators](./img/indicators.png)
+![indicators](./img/indicators.PNG)
 
 2objs = Constraint correctness+Feature richness  
 3objs = Constraint correctness+Feature richness+Cost  
