@@ -90,8 +90,29 @@ As is introduced above, at the end of the evaluations, I can get a set of popula
 - do they near the Pareto front? In some sense, Pareto front is the optimized result I can get. [6] introduced an indicator call "hypervolume". This was applied in my project. The high "hypervolume" a population has, the more preferable it is.
 
 ### Comparison for two methods
+The following results are based on the [model](https://github.com/smartSE/constraintAnalysis/blob/master/ExperimentResult/web%20portal%20feature%20tree.txt)
 
+We first ignore the defects (that is, there were four objectives in total). Here is the result:
+![cost](./img/costEval.jpg)
+![featureE](./img/FeatureNumEval.jpg)
+![familiarity](./img/usedbeforeNumEval.jpg)
 
+Correctness is not shown here. Since it was the same (CORR = 83%) in two methods at the end.
+
+From the result, the IBEA got 11%(20.7 vs 18) more features than differential evaluation with only 3.7%(172 vs 168) cost and 7% less familiarity. 
+
+The following figure shows the relative scores for all objectives in IBEA.
+![five objs](./img/EvalRecord.jpg)
+We can see that the algorithm converge at around 100 evolutions.
+
+The following table is the HV and spread indicators for two methods. From it, we can see that IBEA outperform DE.
+
+!(./img/indicators.png)
+
+2objs = Constraint correctness+Feature richness
+3objs = Constraint correctness+Feature richness+Cost
+4objs = Constraint correctness+Feature richness+Cost+Familiaity
+5objs = all
 
 ## Conclusion
 
