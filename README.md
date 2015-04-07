@@ -40,7 +40,21 @@ After creating the arguments, I calculated the objectives as follows:
 
 Among all of these five objectives, we hope the richness, familiarity to be greater and violations, cost and defects to be smaller. For simplicity, I reverse the first two positive objectives. Consequently, I should minimize all of the five objectives.
 
+### Discrete genetic algorithms/Differential Evaluations
+Differential Evaluation is one kind of genetic algorithms to solve the optimization problem. Following is a belief introduction to this algorithm.
+
+- First, an initial set of solutions are set. We call it initial population.
+- During the evolution, three distinct "parent" can generate a trial solution by A+f*(B-C). If the trial is "better" (to be defined) than the origin parent, then we replace it. Otherwise, we can ignore it or add it to the solution pool.
+- If the stopping criteria is satisfied (This will be discussed later), terminate and output the result. Otherwise, continue go back and perform the DE.
+
+Please note that we do not plan to find one setting/result. Because it's likely that it is impossible to get a result with best values for all objectives. We want to find a set of results, which is the approximation of pareto frontier. Theoretically, we can't find a solution whose all objective value are better than one in pareto frontier.
+
+In the differential evaluation, we have to determine whether a new individual(solution) is better than the one already in the population. Here, "better" means "dominates", that is, for all objectives, "no worse than", and exist one objective, "better".
+
+The stopping criteria is another issue we need to pay attention. 
+
 ## Results
+### What is the best?
 
 ## Discussion
 
