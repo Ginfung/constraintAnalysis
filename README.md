@@ -5,7 +5,7 @@ Project for CSC510 2015 spring
 Modern software engineering is becoming more and more complex. Some commercial software platforms are required to equip with hundreds, even thousands of features, such as enable security network, enable scalable database, customizable GUI, etc. SPLOT(Software Product Lines Online Tools) contains hundreds of feature model instances. Some of them has more than 300 features.  
 
 Among all of the features in a model, there are some constraints. That is, some features are related to each other.  
-Implementing all features in a software project maybe impossible. We need some tools to determine which feature should be furnished at first. A good plan can shorten development time or cost, make the product more competitive in market.
+Implementing all features in a software project maybe impossible. I need some tools to determine which feature should be furnished at first. A good plan can shorten development time or cost, make the product more competitive in market.
 
 ## Requirements and Goals
 This is a very simple feature model.
@@ -13,17 +13,17 @@ This is a very simple feature model.
 
 In this model, E-shop can be divided into 4 sub-feature points: catalogue, payment, security and search. Among them, search is optional, and others are mandatory. In payment sub-feature, it can be bank transfer, credit card or both of them. Security can be high or standard.  
 
-If the above are all problem statement, this problem is quit simple, we can pick up the features from root to leaves. But in this example, their is one cross-tree constraint: CreditCard implies High security.  
+If the above are all problem statement, this problem is quit simple, I can pick up the features from root to leaves. But in this example, their is one cross-tree constraint: CreditCard implies High security.  
 
-Due to the cross-tree constraints, the problem become much more complex. As we all know, SAT is a NP-hard problem. Essentially, the cross-tree constraints in this problem can be expressed as SAT.
+Due to the cross-tree constraints, the problem become much more complex. As I all know, SAT is a NP-hard problem. Essentially, the cross-tree constraints in this problem can be expressed as SAT.
 
 So ultimately this is a optimization problem, specifically, a binary variable optimization problem. The objectives are: try to find out as much features as possible, and follow as much constraints as possible.
 
 In abstract, the feature model can be translated into a optimization problem: let the leaves feature be arguments, get the total satisfied feature and satisfied constraint as two objectives. Our goal is to find the settings for leaves feature (which are binary variables) so that two objectives can be optimized.
 
-Also, in the software project, develop cost, precedentness and defects are very important factors which should not be ignored. Consequently, adding these three objective into the problem can make this tool more powerful. How to define the "best" solution and how to solve this problem will be discussed in the latter section.
+Also, in the software project, develop cost, precedentness and defects are very important factors which should not be ignored. Consequently, adding these three objective into the problem can make this tool more poIrful. How to define the "best" solution and how to solve this problem will be discussed in the latter section.
 
-To summary, this project accepts a feature model, as well as some attributes of features, and returns which feature should be implemented.
+To summary, this project accepts a feature model, as Ill as some attributes of features, and returns which feature should be implemented.
 
 ## Methods
 ### Feature fetch and translation
@@ -38,23 +38,23 @@ After creating the arguments, I calculated the objectives as follows:
 - Defects: This is similar to the cost. 
 - Familiarity: mark which feature has been used before at first. Later count how many features are newly to the developers. This indicates the familiarity for the project.
 
-Among all of these five objectives, we hope the richness, familiarity to be greater and violations, cost and defects to be smaller. For simplicity, I reverse the first two positive objectives. Consequently, I should minimize all of the five objectives.
+Among all of these five objectives, I hope the richness, familiarity to be greater and violations, cost and defects to be smaller. For simplicity, I reverse the first two positive objectives. Consequently, I should minimize all of the five objectives.
 
 ### Discrete genetic algorithms/Differential Evaluations
 Differential Evaluation is one kind of genetic algorithms to solve the optimization problem. Following is a belief introduction to this algorithm.
 
-- First, an initial set of solutions are set. We call it initial population.
-- During the evolution, three distinct "parent" can generate a trial solution by A+f*(B-C). If the trial is "better" (to be defined) than the origin parent, then we replace it. Otherwise, we can ignore it or add it to the solution pool.
+- First, an initial set of solutions are set. I call it initial population.
+- During the evolution, three distinct "parent" can generate a trial solution by A+f*(B-C). If the trial is "better" (to be defined) than the origin parent, then I replace it. Otherwise, I can ignore it or add it to the solution pool.
 - If the stopping criteria is satisfied (This will be discussed later), terminate and output the result. Otherwise, continue go back and perform the DE.
 
-Please note that we do not plan to find one setting/result. Because it's likely that it is impossible to get a result with best values for all objectives. We want to find a set of results, which is the approximation of pareto frontier. Theoretically, we can't find a solution whose all objective value are better than one in pareto frontier.
+Please note that I do not plan to find one setting/result. Because it's likely that it is impossible to get a result with best values for all objectives. I want to find a set of results, which is the approximation of pareto frontier. Theoretically, I can't find a solution whose all objective value are better than one in pareto frontier.
 
-In the differential evaluation, we have to determine whether a new individual(solution) is better than the one already in the population. Here, "better" means "dominates", that is, for all objectives, "no worse than", and exist one objective, "better".
+In the differential evaluation, I have to determine whether a new individual(solution) is better than the one already in the population. Here, "better" means "dominates", that is, for all objectives, "no worse than", and exist one objective, "better".
 
-The stopping criteria is another issue we need to pay attention. The simplest criteria is the maximum generation count. We can also track the improvement for each generation. If the accumulated improvement is less than one threshold, terminates the program.
+The stopping criteria is another issue I need to pay attention. The simplest criteria is the maximum generation count. I can also track the improvement for each generation. If the accumulated improvement is less than one threshold, terminates the program.
 
 ### Continuous genetic algorithms/Indicator-based Evolution
-In the discrete genetic algorithm, the main generating motive is eliminating the worse individuals and replacing them with a new individual. In other words, we only care about whether one is better or worse than anther, we do NOT take to what extend one is better/worse than anther into consideration. However, it's not difficult to know that the extend of "better" or "worse" can give us a more precise evolution direction. This is the basic idea for Indicator-Based Evolution Algorithm (IBEA).
+In the discrete genetic algorithm, the main generating motive is eliminating the worse individuals and replacing them with a new individual. In other words, I only care about whether one is better or worse than anther, I do NOT take to what extend one is better/worse than anther into consideration. HoIver, it's not difficult to know that the extend of "better" or "worse" can give us a more precise evolution direction. This is the basic idea for Indicator-Based Evolution Algorithm (IBEA).
 
 Following is a belief introduction to IBEA.
 - First step is the same as DE.
@@ -65,26 +65,32 @@ Following is a belief introduction to IBEA.
 
 The stop criterion can be the same as differential evolution here.
 
-The core for IBEA is the fitness assignment (step 2). Note that fitness assignment tries to rank the population members according to their usefulness regarding the optimization goal. I used the eplson-additive fitness indicator, that is, the minimum distance by which a Pareto set approximation needs to be translated in each dimension in objective space such that another approximation is weakly dominated.(No worse than, but can be same). This is an illustration from [7].
+The core for IBEA is the fitness assignment (step 2). Note that fitness assignment tries to rank the population members according to their usefulness regarding the optimization goal. I used the eplson-additive fitness indicator, that is, the minimum distance by which a Pareto set approximation needs to be translated in each dimension in objective space such that another approximation is Iakly dominated.(No worse than, but can be same). This is an illustration from [7].
 ![fitness](./img/fitnessillustration.PNG)
 
-Test cases showed that IBEA indeed returns a better result.
+Test cases shoId that IBEA indeed returns a better result.
 
 ## Testing procedure
 There are several packages(components) in this project.
 
 DEMO is the differential evaluation algorithm whose search space is continuous. Although this is not applied at the end, it provided a good reference/chance to understand this algorithm. Many standard test problem have been built inside it, such as ZDT, DTLZ, etc. Just to change the problem in "multiobjective" and run it. The result will saved when the calculation terminates.
 
-SXFM_Parser is a Java Project, which is built on the SXFM parser provided by SPLOT. To test it, first one should find a SXFM formatted file. Provide the URL of this file in GenerateFeatureAttribute.java. The program will return the logic expression for each feature, along with all the constraint expression. One can compare these outputs with the visualized tool in SPLOT website.
+SXFM_Parser is a Java Project, which is built on the SXFM parser provided by SPLOT. To test it, first one should find a SXFM formatted file. Provide the URL of this file in GenerateFeatureAttribute.java. The program will return the logic expression for each feature, along with all the constraint expression. One can compare these outputs with the visualized tool in SPLOT Ibsite.
 
-Product lines is the core for this project. One can run the testEntrance and get the visualized result directed. Package "DE+NSGAII" and "IBEA" are algorithm implements. In product line package, "web portal" model is pre-built. One can also use the SXFM_Parser to build any other feature models.
+Product lines is the core for this project. One can run the testEntrance and get the visualized result directed. Package "DE+NSGAII" and "IBEA" are algorithm implements. In product line package, "Ib portal" model is pre-built. One can also use the SXFM_Parser to build any other feature models.
 
 Product lines also contains a comparison tool call "CompareByXtile". One can use this tool to compare any variable sets after they get the final result.
 
 
 ## Results
-### What is the best?
+### What is so-called a good result?
+As is introduced above, at the end of the evaluations, I can get a set of populations, which are the setting for leaf-feature in the feature model. Here comes a question: if I have two sets of populations, which one is better? Which one should I accept? To rubric is:
+- do they satisfy cross-tree constraints? Cross-tree constraints complex the optimization problem. Thus, a good result should meet the cross-tree constraints as much as possible.
+- how many effect individuals can I get? Although two set of populations share the same population size, they may not spread in the same extend. Consequently, I use a index--"spread" to express the extend for the spread of populations. The higher "spread" is, the more distinct individuals I can get, thus more preferable.
+- do they near the Pareto front? In some sense, Pareto front is the optimized result I can get. [6] introduced an indicator call "hypervolume". This was applied in my project. The high "hypervolume" a population has, the more preferable it is.
+
 ### Comparison for two methods
+
 
 
 ## Conclusion
