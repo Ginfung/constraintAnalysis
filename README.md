@@ -129,10 +129,7 @@ Since the IBEA use the fitness to motivate the evaluation, it is not surprise th
 In the differential evaluation, if one trial dominates the original one already in the population, I replace the original one with the new individual; and if the original one dominates the trial one, obviously, I should discard the trial. But what if they are indifferent? That is, for some objectives, the trial is better, while for other objectives, the trial is worse. Inspired by [9], I add the trial into the population. If so, pruning is a must. Consequently, I applied the pruning method introduced in [9]-NSGAII. All of the upper DE results were containing this method.
 
 ### Does it improve in this generation?
-
-
-
-### Why continuous evolution can get a better result?
+Now this report remains one question to solve: when to terminate the algorithm? Obviously the termination should be based on whether the new generation is better than the older one. If the evolutionary process is heading to a wrong direction(the accumulated improvement is negative), the algorithm must be terminated. We can use the probability-- randomly pick up two individuals from two generations, the individual in new generation dominates the old one. If this probability is less than a threshold for many times, we terminates the algorithm. 
 
 ### Can it be better?
 
