@@ -51,16 +51,45 @@ Please note that we do not plan to find one setting/result. Because it's likely 
 
 In the differential evaluation, we have to determine whether a new individual(solution) is better than the one already in the population. Here, "better" means "dominates", that is, for all objectives, "no worse than", and exist one objective, "better".
 
-The stopping criteria is another issue we need to pay attention. 
+The stopping criteria is another issue we need to pay attention. The simplest criteria is the maximum generation count. We can also track the improvement for each generation. If the accumulated improvement is less than one threshold, terminates the program.
+
+### Continuous genetic algorithms/Indicator-based Evolution
+In the discrete genetic algorithm, the main generating motive is eliminating the worse individuals and replacing them with a new individual. In other words, we only care about whether one is better or worse than anther, we do NOT take to what extend one is better/worse than anther into consideration. However, it's not difficult to know that the extend of "better" or "worse" can give us a more precise evolution direction. This is the basic idea for Indicator-Based Evolution Algorithm (IBEA).
+
+Following is a belief introduction to IBEA.
+- First step is the same as DE.
+- Calculate the fitness value (discuss later) of each individuals in current population. Repeat to eliminate the individuals with the smallest fitness, until the population size is less than a predefined size.
+- Generating the mating pool, which is the same as typical genetic algorithms.
+- Apply the recombination and mutation operators to the mating pool; add them to the population
+- If the stop criterion is not met, go back to the second step; otherwise, terminate the program.
+
+The stop criterion can be the same as differential evolution here.
+
+The core for IBEA is the fitness assignment (step 2). 
+
+## Testing procedure
+
 
 ## Results
 ### What is the best?
+### Comparison for two methods
 
-## Discussion
 
 ## Conclusion
 
+## Discussion
+### Just ignore the non-dominate individual?
+
+### Does it improve in this generation?
+
+### Why continuous evolution can get a better result?
+
+### Can it be better?
+
+
+
 ## Future Work
+
 
 ## References
 [1] Storn, Rainer, and Kenneth Price. "Differential evolution–a simple and efficient heuristic for global optimization over continuous spaces." Journal of global optimization 11.4 (1997): 341-359. 
