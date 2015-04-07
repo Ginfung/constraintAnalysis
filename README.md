@@ -90,9 +90,9 @@ As is introduced above, at the end of the evaluations, I can get a set of popula
 - do they near the Pareto front? In some sense, Pareto front is the optimized result I can get. [6] introduced an indicator call "hypervolume". This was applied in my project. The high "hypervolume" a population has, the more preferable it is.
 
 ### Comparison for two methods
-The following results are based on the [model](https://github.com/smartSE/constraintAnalysis/blob/master/ExperimentResult/web%20portal%20feature%20tree.txt)
+The following results are based on the [model](https://github.com/smartSE/constraintAnalysis/blob/master/ExperimentResult/Ib%20portal%20feature%20tree.txt)
 
-We first ignore the defects (that is, there were four objectives in total). Here is the result:
+I first ignore the defects (that is, there Ire four objectives in total). Here is the result:
 ![cost](./img/costEval.jpg)
 ![featureE](./img/FeatureNumEval.jpg)
 ![familiarity](./img/usedbeforeNumEval.jpg)
@@ -103,9 +103,9 @@ From the result, the IBEA got 11%(20.7 vs 18) more features than differential ev
 
 The following figure shows the relative scores for all objectives in IBEA.
 ![five objs](./img/EvalRecord.jpg)
-We can see that the algorithm converge at around 100 evolutions.
+I can see that the algorithm converge at around 100 evolutions.
 
-The following table is the HV and spread indicators for two methods. From it, we can see that IBEA outperform DE.
+The following table is the HV and spread indicators for two methods. From it, I can see that IBEA outperform DE. This result is from a much larger feature [model](http://gsd.uwaterloo.ca:8088/SPLOT/models/REAL-FM-4.xml) (this will be demonstrated in the presentation)
 
 ![indicators](./img/indicators.PNG)
 
@@ -115,11 +115,22 @@ The following table is the HV and spread indicators for two methods. From it, we
 5objs = all
 
 ## Conclusion
+Belief conclusion:
+- IBEA converges slightly sloIr that that of DE
+- IBEA outperforms DE in sense of HV and spread indicators
+
+Analysis:
+
+Since the IBEA use the fitness to motivate the evaluation, it is not surprise that it can get better HV and spread. HoIver, calculating the fitness is time-consuming. Consequently, running IBEA takes a little longer time. Also, from the result figures, I noticed that there are some exception points in IBEA. From my point of view, this is because of the mutation operators in IBEA. HoIver, this is not a bad thing. First, it is very normal that a genetic algorithm generates exception result. Second, it can provide more search direction among the search space, which can avoid local optimization to some extend.
+
 
 ## Discussion
 ### Just ignore the non-dominate individual?
+In the differential evaluation, if one trial dominates the original one already in the population, I replace the original one with the new individual; and if the original one dominates the trial one, obviously, I should discard the trial. But what if they are indifferent? That is, for some objectives, the trial is better, while for other objectives, the trial is worse. Inspired by [9], I add the trial into the population. If so, pruning is a must. Consequently, I applied the pruning method introduced in [9]-NSGAII. All of the upper DE results were containing this method.
 
 ### Does it improve in this generation?
+
+
 
 ### Why continuous evolution can get a better result?
 
