@@ -65,9 +65,21 @@ Following is a belief introduction to IBEA.
 
 The stop criterion can be the same as differential evolution here.
 
-The core for IBEA is the fitness assignment (step 2). 
+The core for IBEA is the fitness assignment (step 2). Note that fitness assignment tries to rank the population members according to their usefulness regarding the optimization goal. I used the eplson-additive fitness indicator, that is, the minimum distance by which a Pareto set approximation needs to be translated in each dimension in objective space such that another approximation is weakly dominated.(No worse than, but can be same). This is an illustration from [7].
+![fitness](./img/fitnessillustration.PNG)
+
+Test cases showed that IBEA indeed returns a better result.
 
 ## Testing procedure
+There are several packages(components) in this project.
+
+DEMO is the differential evaluation algorithm whose search space is continuous. Although this is not applied at the end, it provided a good reference/chance to understand this algorithm. Many standard test problem have been built inside it, such as ZDT, DTLZ, etc. Just to change the problem in "multiobjective" and run it. The result will saved when the calculation terminates.
+
+SXFM_Parser is a Java Project, which is built on the SXFM parser provided by SPLOT. To test it, first one should find a SXFM formatted file. Provide the URL of this file in GenerateFeatureAttribute.java. The program will return the logic expression for each feature, along with all the constraint expression. One can compare these outputs with the visualized tool in SPLOT website.
+
+Product lines is the core for this project. One can run the testEntrance and get the visualized result directed. Package "DE+NSGAII" and "IBEA" are algorithm implements. In product line package, "web portal" model is pre-built. One can also use the SXFM_Parser to build any other feature models.
+
+Product lines also contains a comparison tool call "CompareByXtile". One can use this tool to compare any variable sets after they get the final result.
 
 
 ## Results
