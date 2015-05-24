@@ -31,7 +31,7 @@ for i = 1:totalFeatureNum
     end
 end
 
-ObjectiveDimension = 2;                      % objective(goal) space dimension % all goals should be minimized
+ObjectiveDimension = 3;                      % objective(goal) space dimension % all goals should be minimized
 
 %f(1) is rule violations
 %f(2) is feature NOT provided
@@ -58,10 +58,13 @@ if ObjectiveDimension >= 5
     objBound_Max(5) = sum(defects);
 end
 
-
-
+%% dymanic drawing
+figure;
+view(-10,10);
+pause(2)
+%%
 %% Execute the testing
-generation = 20;
+generation = 250;
 %  cd('DE+NSGAII')
 %  [parent1, f1, evoluationRecord1,featureRecord1] = multiObjective(generation);
 %  cd('..');
@@ -69,6 +72,30 @@ cd('IBEA')
 [parent2, f2, evoluationRecord2,featureRecord2] = IBEA(generation);
 cd('..');
 
+%%
+% subplot(511);
+% plot(evoluationRecord1(:,1));figure(gcf);
+% subplot(512);
+% plot(evoluationRecord1(:,2));figure(gcf);
+% subplot(513);
+% plot(evoluationRecord1(:,3));figure(gcf);
+% subplot(514);
+% plot(evoluationRecord1(:,4));figure(gcf);
+% subplot(515);
+% plot(evoluationRecord1(:,5));figure(gcf);
+% %%
+% figure();
+% subplot(511);
+% plot(evoluationRecord2(:,1));figure(gcf);
+% subplot(512);
+% plot(evoluationRecord2(:,2));figure(gcf);
+% subplot(513);
+% plot(evoluationRecord2(:,3));figure(gcf);
+% subplot(514);
+% plot(evoluationRecord2(:,4));figure(gcf);
+% subplot(515);
+% plot(evoluationRecord2(:,5));figure(gcf);
+%%
 
 %% Analysis. Visualization
 

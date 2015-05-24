@@ -28,12 +28,23 @@ for i = 1:size(P,1)
     obj(i,:) = Problem(P(i,:),D);
 end
 
+scatter3(obj(:,1),obj(:,2),obj(:,3),'+');
+xlim([0 10]);
+ylim([40 100]);
+zlim([500 1200]);
+pause(1)
+
 %% step 2: Fitness assignment
 F = Fitness(P,obj);
 
 %%
 gen  = 1;
 while (gen <= gen_max)
+    scatter3(obj(:,1),obj(:,2),obj(:,3),'+');
+    xlim([0 10]);
+    ylim([40 100]);
+    zlim([500 1200]);
+    pause(0.5)
     gen
     F = Fitness(P,obj);
     %% step 3: Environment selection
